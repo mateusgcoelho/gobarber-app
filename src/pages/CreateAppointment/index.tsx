@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { format } from 'date-fns';
 
 import { useAuth } from '../../hooks/auth';
+import ProfileIcon from '../../assets/profile.png';
 import api from '../../services/api';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -168,7 +169,11 @@ const CreateAppointment: React.FC = () => {
 
         <HeaderTitle>Cabeleireiros</HeaderTitle>
 
-        <UserAvatar source={{ uri: user.avatar_url }} />
+        {user.avatar_url ? (
+          <UserAvatar source={{ uri: user.avatar_url }} />
+        ) : (
+          <UserAvatar source={ProfileIcon} />
+        )}
       </Header>
 
       <Content>
@@ -183,7 +188,11 @@ const CreateAppointment: React.FC = () => {
                 onPress={() => handleSelectProvider(provider.id)}
                 selected={provider.id === selectedProvider}
               >
-                <ProviderAvatar source={{ uri: provider.avatar_url }} />
+                {provider.avatar_url ? (
+                  <ProviderAvatar source={{ uri: provider.avatar_url }} />
+                ) : (
+                  <ProviderAvatar source={ProfileIcon} />
+                )}
                 <ProviderName selected={provider.id === selectedProvider}>
                   {provider.name}
                 </ProviderName>
