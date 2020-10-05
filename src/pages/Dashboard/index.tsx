@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 
 import Icon from 'react-native-vector-icons/Feather';
+import ProfileIcon from '../../assets/profile.png';
 
 import {
   Container,
@@ -32,7 +33,7 @@ export interface Provider {
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
 
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { navigate } = useNavigation();
 
   useEffect(() => {
@@ -60,8 +61,12 @@ const Dashboard: React.FC = () => {
           <UserName>{user.name}</UserName>
         </HeaderTitle>
 
-        <ProfileButton onPress={navigateToProfile}>
-          <UserAvatar source={{ uri: user.avatar_url }} />
+        <ProfileButton onPress={signOut}>
+          {user.avatar_url ? (
+            <UserAvatar source={{ uri: user.avatar_url }} />
+          ) : (
+            <UserAvatar source={ProfileIcon} />
+          )}
         </ProfileButton>
       </Header>
 
@@ -77,7 +82,11 @@ const Dashboard: React.FC = () => {
               navigateToCreateAppointment(provider.id);
             }}
           >
-            <ProviderAvatar source={{ uri: provider.avatar_url }} />
+            {user.avatar_url ? (
+              <ProviderAvatar source={{ uri: user.avatar_url }} />
+            ) : (
+              <ProviderAvatar source={ProfileIcon} />
+            )}
 
             <ProviderInfo>
               <ProviderName>{provider.name}</ProviderName>

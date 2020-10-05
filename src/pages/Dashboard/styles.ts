@@ -23,6 +23,9 @@ export const HeaderTitle = styled.Text`
 
   font-family: 'RobotoSlab-Regular';
   line-height: 28px;
+
+  width: 100%;
+  max-width: 250px;
 `;
 
 export const UserName = styled.Text`
